@@ -163,7 +163,23 @@ document.addEventListener("DOMContentLoaded", function() {
       this.$stepInstructions[0].parentElement.parentElement.hidden = this.currentStep >= 5;
       this.$step.parentElement.hidden = this.currentStep >= 5;
 
-      // TODO: get data from inputs and show them in summary
+      let quantityR = document.getElementById("quantity");
+      let institutionR = document.getElementById("institution");
+      let streetR = document.getElementById("street");
+      let cityR = document.getElementById("city");
+      let zipCodeR = document.getElementById("zipCode");
+      let dateR = document.getElementById("date");
+      let timeR = document.getElementById("time");
+      let commentR = document.getElementById("comment");
+
+      document.getElementById("resultQuantity").innerHTML = quantityR.value + " worki darów";
+      document.getElementById("resultInstitutionName").innerHTML = "Dla fundacji " + institutionR.value;
+      document.getElementById("resultStreet").innerHTML = streetR.value;
+      document.getElementById("resultCity").innerHTML = cityR.value;
+      document.getElementById("resultZipCode").innerHTML = zipCodeR.value;
+      document.getElementById("resultPickUpDate").innerHTML = dateR.value;
+      document.getElementById("resultPickUpTime").innerHTML = timeR.value;
+      document.getElementById("resultPickUpComment").innerHTML = commentR.value;
     }
 
   }

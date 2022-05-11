@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @NoArgsConstructor
-
+//notblank
 public class Institution {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
