@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/donation")
+@RequestMapping("")
 public class DonationController {
     private final InstitutionRepository institutionRepository;
     private final CategoryRepository categoryRepository;
@@ -28,7 +28,7 @@ public class DonationController {
         this.donationRepository = donationRepository;
     }
 
-    @GetMapping("")
+    @GetMapping("/donation")
     public String donateAction(Model model,
                                @Valid @ModelAttribute("donation") Donation donation,
                                BindingResult bindingResult) {
@@ -45,13 +45,13 @@ public class DonationController {
         return "form";
     }
 
-    @PostMapping("")
+    @PostMapping("/donation")
     public String addDonation(Model model,
-            @Valid @ModelAttribute("donation") Donation donation,
-                              BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "form";
-        }
+            @ModelAttribute("donation") Donation donation
+                             ) {
+//        if (bindingResult.hasErrors()) {
+//            return "form";
+//        }
 
         Donation myDonation = new Donation();
 

@@ -163,8 +163,33 @@ document.addEventListener("DOMContentLoaded", function() {
       this.$stepInstructions[0].parentElement.parentElement.hidden = this.currentStep >= 5;
       this.$step.parentElement.hidden = this.currentStep >= 5;
 
+      // check chosen categories
+      let categories = [];
+      let checkboxes = document.getElementsByName("categories");
+      checkboxes.forEach(function(e) {
+        if (e.checked) {
+          categories.push(e.value);
+        }
+      });
+      console.log(categories);
+
+
+      // check chosen institution
+      let institutionR;
+      let institutionsR = document.getElementsByName("institution");
+      institutionsR.forEach(function (e) {
+        if (e.checked) {
+          institutionR = e.value;
+        }
+      })
+      console.log(institutionR);
+
+
+
       let quantityR = document.getElementById("quantity");
-      let institutionR = document.getElementById("institution");
+      console.log(quantityR.value);
+
+
       let streetR = document.getElementById("street");
       let cityR = document.getElementById("city");
       let zipCodeR = document.getElementById("zipCode");
@@ -173,7 +198,7 @@ document.addEventListener("DOMContentLoaded", function() {
       let commentR = document.getElementById("comment");
 
       document.getElementById("resultQuantity").innerHTML = quantityR.value + " worki darów";
-      document.getElementById("resultInstitutionName").innerHTML = "Dla fundacji " + institutionR.value;
+      document.getElementById("resultInstitutionName").innerHTML = "Dla fundacji " + institutionR;
       document.getElementById("resultStreet").innerHTML = streetR.value;
       document.getElementById("resultCity").innerHTML = cityR.value;
       document.getElementById("resultZipCode").innerHTML = zipCodeR.value;
