@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+
 <%@ include file="header.jsp" %>
 
     <section class="login-page">
@@ -16,7 +17,7 @@
         </div>
         </spring:bind>
 
-        <spring:bind path="email">
+        <spring:bind path="password">
         <div class="form-group">
           <form:input type="password" name="password" placeholder="Hasło" path="password"/>
         </div>
