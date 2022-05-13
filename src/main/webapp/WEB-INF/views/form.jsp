@@ -151,7 +151,7 @@
 
                             <div class="form-group form-group--checkbox">
                                 <label>
-                                    <form:radiobutton name="institution" value="${institution}" path="institution"/>
+                                    <form:radiobutton name="institution" value="${institution}" path="institution" nameI="${institution.name}"/>
                                     <span class="checkbox radio"></span>
                                     <span class="description">
                               <div class="title">${institution.name}</div>

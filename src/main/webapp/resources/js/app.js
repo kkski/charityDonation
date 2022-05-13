@@ -171,24 +171,18 @@ document.addEventListener("DOMContentLoaded", function() {
           categories.push(e.value);
         }
       });
-      console.log(categories);
-
 
       // check chosen institution
       let institutionR;
       let institutionsR = document.getElementsByName("institution");
       institutionsR.forEach(function (e) {
         if (e.checked) {
-          institutionR = e.value;
+          institutionR = e.getAttribute("nameI");
         }
       })
-      console.log(institutionR);
-
 
 
       let quantityR = document.getElementById("quantity");
-      console.log(quantityR.value);
-
 
       let streetR = document.getElementById("street");
       let cityR = document.getElementById("city");

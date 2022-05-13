@@ -22,7 +22,8 @@ public class HomeController {
     @RequestMapping("/")
     public String homeAction(Model model){
         model.addAttribute("institutions", institutionRepository.findAll());
-        model.addAttribute("donationsAmount", "exampleAttribute3");
+        model.addAttribute("bagsAmount", donationRepository.findAllQuantityAndSum());
+        model.addAttribute("donationsAmount", donationRepository.countAll());
         return "index";
     }
 }
