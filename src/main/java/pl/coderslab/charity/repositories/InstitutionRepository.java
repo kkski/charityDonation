@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface InstitutionRepository extends JpaRepository<Institution, Long> {
 
-    @Query("select i from Institution i")
-    List<Institution> findAll();
+//    @Query("select i from Institution i")
+//    List<Institution> findAll();
 
     @Query("select count(i) from Institution i")
     Integer countAll();

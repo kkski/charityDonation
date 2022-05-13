@@ -1,5 +1,6 @@
 package pl.coderslab.charity;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,13 +32,21 @@ public class HomeController {
     @RequestMapping("/")
     public String homeAction(Model model){
 
-
-        model.addAttribute("institutions", institutionRepository.findAll());
-        model.addAttribute("donationsAmount", donationRepository.countAll());
-        model.addAttribute("bagsAmount", donationRepository.findAllQuantityAndSum() == null ? Integer.valueOf(0) : donationRepository.findAllQuantityAndSum());
-
+        model.addAttribute("institutions", institutionRepository.findAll(PageRequest.ofSize(4)).getContent());
+        model.addAttribute("donationsAmount", donationRepository.count());
+        model.addAttribute("bagsAmount", donationRepository.findAllQuantityAndSum().orElse(0));
 
         return "index";
+    }
+
+
+    @GetMapping("/admin")
+    public String admin(@AuthenticationPrincipal CurrentUser customUser,
+                        Model model) {
+        User entityUser = customUser.getUser();
+        User myUser = userService.findByUsername(entityUser.getUsername());
+        model.addAttribute("user", myUser);
+        return "admin";
     }
 
 
@@ -45,6 +54,11 @@ public class HomeController {
     @GetMapping("/login")
     public String login() {
         return "/login";
+    }
+
+    @GetMapping("/logout")
+    public String logout() {
+        return "logout";
     }
 
     @GetMapping("/register")

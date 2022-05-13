@@ -6,10 +6,16 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <jsp:include page="headerloggedin.jsp"/>
 <section class="login-page">
-    <h2>Dzięki za zalogowanie</h2>
+    <h2><sec:authorize access="isAuthenticated()">
+        <form action="<c:url value="/logout"/>" method="post">
+            <input type="submit" value="Wyloguj" class="inputLogin">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        </form>
+    </sec:authorize></h2>
 </section>
 
 <jsp:include page="footer.jsp"/>
 
+<script src="js/app.js"></script>
 </body>
 </html>
