@@ -126,4 +126,103 @@ public class AdminController {
 
     }
 
+
+    @GetMapping("")
+    public String admin(@AuthenticationPrincipal CurrentUser customUser,
+                        Model model) {
+        User entityUser = customUser.getUser();
+        User myUser = userService.findByUsername(entityUser.getUsername());
+        model.addAttribute("user", myUser);
+        return "app/admin/admin";
+    }
+    @GetMapping("/admins")
+    public String showAdmins(@AuthenticationPrincipal CurrentUser customUser,
+                                   Model model) {
+        User entityUser = customUser.getUser();
+        User myUser = userService.findByUsername(entityUser.getUsername());
+        model.addAttribute("user", myUser);
+        model.addAttribute("admins", userService.findAllWhereRoleIsAdmin());
+        return "app/admin/admins";
+
+
+    }
+
+    @GetMapping("/admins/add")
+    public String addAdmin(@AuthenticationPrincipal CurrentUser customUser,
+                                  Model model) {
+        User entityUser = customUser.getUser();
+        User myUser = userService.findByUsername(entityUser.getUsername());
+        model.addAttribute("user", myUser);
+        model.addAttribute("userForm", new UserDto());
+        return "app/admin/adminadd";
+    }
+    @PostMapping("/admins/add")
+    public String doAddAdmin(@Valid @ModelAttribute("userForm") UserDto userForm,
+                           BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "admin/register";
+        }
+        userService.saveAdmin(userForm);
+        return "redirect:/admin/admins";
+    }
+
+
+    @GetMapping("/admins/edit/{adminId}")
+    public String editAdminForm(@AuthenticationPrincipal CurrentUser customUser,
+                                      Model model,
+                                      @PathVariable("adminId") Long adminId) {
+
+        User entityUser = customUser.getUser();
+        User myUser = userService.findByUsername(entityUser.getUsername());
+        model.addAttribute("user", myUser);
+        model.addAttribute("userToChange", userService.findById(adminId));
+        model.addAttribute("userForm", new UserDto());
+        return "app/admin/adminedit";
+
+    }
+    @PostMapping("/admins/edit/{adminId}")
+    public String doEditAdmin(@Valid @ModelAttribute("userForm") UserDto userForm,
+                             BindingResult bindingResult,
+                              @PathVariable("adminId") Long adminId) {
+
+        if (bindingResult.hasErrors()) {
+            return "app/institutions/institutionsedit";
+        }
+        User userToChange = userService.findById(adminId);
+        userToChange.setUsername(userForm.getUsername());
+        userToChange.setEmail(userForm.getEmail());
+        userToChange.setLastName(userForm.getLastName());
+        userToChange.setFirstName(userForm.getFirstName());
+        userToChange.setPassword(userForm.getPassword());
+        userService.saveAdmin(userForm);
+        return "redirect:/admin/admins";
+    }
+
+
+//    @GetMapping("/institutions/delete/{institutionId}")
+//    public String deleteInstitutionForm(@AuthenticationPrincipal CurrentUser customUser,
+//                                        Model model,
+//                                        @PathVariable("institutionId") Long institutionId) {
+//
+//        User entityUser = customUser.getUser();
+//        User myUser = userService.findByUsername(entityUser.getUsername());
+//        model.addAttribute("user", myUser);
+//        model.addAttribute("institutionToDelete", institutionRepository.getById(institutionId));
+//        return "app/institutions/institutionsdelete";
+//
+//    }
+//
+//    @GetMapping("/institutions/delete/{institutionId}/confirm")
+//    public String doDeleteInstitution(@PathVariable("institutionId") Long institutionId
+//    ) {
+//
+//        institutionRepository.delete(institutionRepository.getById(institutionId));
+//
+//        return "redirect:/admin/institutions/";
+//
+//
+//    }
+//
+
 }

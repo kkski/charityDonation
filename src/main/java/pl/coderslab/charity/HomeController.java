@@ -40,14 +40,7 @@ public class HomeController {
     }
 
 
-    @GetMapping("/admin")
-    public String admin(@AuthenticationPrincipal CurrentUser customUser,
-                        Model model) {
-        User entityUser = customUser.getUser();
-        User myUser = userService.findByUsername(entityUser.getUsername());
-        model.addAttribute("user", myUser);
-        return "admin";
-    }
+
 
 
 

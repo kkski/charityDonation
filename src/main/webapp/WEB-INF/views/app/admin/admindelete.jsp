@@ -4,14 +4,19 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<jsp:include page="headerloggedin.jsp"/>
+<jsp:include page="../../headerloggedin.jsp"/>
+
 <section class="login-page">
-    <h2>Dzięki za zalogowanie jako admin</h2>
+    <h2>Usuń organizację</h2>
+    <div class="col">
+        <div class="title">Nazwa instytucji: ${institutionToDelete.name}</div>
+        <div class="subtitle">Opis instytucji: ${institutionToDelete.description}</div>
+    </div>
+    <a href="/admin/institutions/delete/${institutionToDelete.id}/confirm">Potwierdź usunięcie</a>
 </section>
 
-<jsp:include page="footer.jsp"/>
 
+<%@ include file="../../footer.jsp" %>
 
-<script src="js/app.js"></script>
 </body>
 </html>
