@@ -32,7 +32,7 @@ public class AppController {
                              Model model) {
         User entityUser = customUser.getUser();
         User myUser = userService.findByUsername(entityUser.getUsername());
-        model.addAttribute("username", myUser.getUsername());
+        model.addAttribute("user", myUser);
         Role admin = roleRepository.findByName("ROLE_ADMIN");
         Set<Role> roleList = myUser.getRoles();
         if (roleList.contains(admin)) {
