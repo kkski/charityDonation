@@ -10,6 +10,21 @@
     <section class="login-page">
       <h2>Załóż konto</h2>
       <form:form method="POST" modelAttribute="userForm" class="form-signin">
+        <spring:bind path="username">
+          <div class="form-group">
+            <form:input type="text" name="username" placeholder="Username" path="username"/>
+          </div>
+        </spring:bind>
+        <spring:bind path="firstName">
+          <div class="form-group">
+            <form:input type="text" name="firstName" placeholder="First name" path="firstName"/>
+          </div>
+        </spring:bind>
+        <spring:bind path="lastName">
+          <div class="form-group">
+            <form:input type="lastName" name="lastName" placeholder="Last name" path="lastName"/>
+          </div>
+        </spring:bind>
 
         <spring:bind path="email">
         <div class="form-group">

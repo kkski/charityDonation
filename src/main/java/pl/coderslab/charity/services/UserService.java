@@ -5,7 +5,7 @@ import pl.coderslab.charity.model.UserDto;
 
 public interface UserService {
 
-        User findByEmail(String email);
+        User findByUsername(String username);
 
         void saveUser(UserDto user);
     }

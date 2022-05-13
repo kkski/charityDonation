@@ -10,6 +10,12 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class UserDto {
     @NotBlank
+    private String username;
+    @NotBlank
+    private String firstName;
+    @NotBlank
+    private String lastName;
+    @NotBlank
     private String email;
     @NotBlank
     private String password;

@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
 @Entity
@@ -19,6 +20,10 @@ public class User {
     @Column(nullable = false, unique = true, length = 60)
     private String email;
     private String password;
+    @Column(nullable = false, unique = true, length = 60)
+    private String username;
+    private String firstName;
+    private String lastName;
     private int enabled;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),

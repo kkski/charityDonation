@@ -19,12 +19,12 @@ public class AppController {
         this.userService = userService;
     }
 
-    @GetMapping("/app")
+    @GetMapping("")
     public String afterLogin(@AuthenticationPrincipal CurrentUser customUser,
                              Model model) {
         User entityUser = customUser.getUser();
-        User myUser = userService.findByEmail(entityUser.getEmail());
-        model.addAttribute("email", myUser.getEmail());
-        return "/app";
+        User myUser = userService.findByUsername(entityUser.getUsername());
+        model.addAttribute("username", myUser.getUsername());
+        return "app";
     }
 }
