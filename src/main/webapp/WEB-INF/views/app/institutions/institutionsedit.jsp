@@ -4,10 +4,25 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<jsp:include page="headerloggedin.jsp"/>
+<jsp:include page="../../headerloggedin.jsp"/>
 
 <section class="login-page">
-    <h2>Dodaj organizację</h2>
+    <h2>Edytuj organizację</h2>
+
+
+    <section>
+        <div class="help--slides active">
+            <div>
+                <h3>Dane edytowanej organizacji</h3>
+                <ul>
+                    <li>Nazwa: ${institutionToChange.name}</li>
+                    <li>Opis: ${institutionToChange.description}</li>
+                </ul>
+            </div>
+    </section>
+
+        </div>
+
     <form:form method="POST" modelAttribute="institution" class="form-signin">
         <spring:bind path="name">
             <div class="form-group">
@@ -27,7 +42,7 @@
 </section>
 
 
-<%@ include file="footer.jsp" %>
+<%@ include file="../../footer.jsp" %>
 
 </body>
 </html>

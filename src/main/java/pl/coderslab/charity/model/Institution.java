@@ -9,6 +9,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name="institutions")
@@ -27,6 +28,8 @@ public class Institution {
     @NotBlank(message = "Wprowadź wartość")
     @Size(min=4, message = "Wprowadź minimum 4 litery.")
     private String description;
+    @OneToMany(mappedBy = "institution", orphanRemoval = true)
+    private List<Donation> donationList;
 
 
 

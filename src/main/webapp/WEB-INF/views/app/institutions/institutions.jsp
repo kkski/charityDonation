@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<jsp:include page="headerloggedin.jsp"/>
+<jsp:include page="../../headerloggedin.jsp"/>
 <section class="help">
     <h2>Zarządzaj instytucjami</h2>
     <h3><a href="/admin/institutions/add">Dodaj nową instytucję</a></h3>
@@ -15,6 +15,8 @@
                 <div class="col">
                     <div class="title">${i.name}</div>
                     <div class="subtitle">${i.description}</div>
+                    <div class="subtitle"><a href="/admin/institutions/edit/${i.id}">Edytuj</a> <a href="/admin/institutions/delete/${i.id}">Usuń</a></div>
+
                 </div>
                 <c:if test="${loop.index + 1 % 2 == 0}"></li></c:if>
             </c:forEach>
@@ -23,7 +25,7 @@
     </div>
 </section>
 
-<%@ include file="footer.jsp" %>
+<%@ include file="../../footer.jsp" %>
 
 </body>
 </html>
