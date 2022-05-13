@@ -5,19 +5,27 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.coderslab.charity.model.Role;
 import pl.coderslab.charity.model.User;
+import pl.coderslab.charity.repositories.RoleRepository;
 import pl.coderslab.charity.services.CurrentUser;
 import pl.coderslab.charity.services.UserService;
 
+import java.util.List;
+import java.util.Set;
+
 @Controller
-@RequestMapping("/app")
+@RequestMapping("/start")
 public class AppController {
 
     private final UserService userService;
+    private final RoleRepository roleRepository;
 
-    public AppController(UserService userService) {
+    public AppController(UserService userService, RoleRepository roleRepository) {
         this.userService = userService;
+        this.roleRepository = roleRepository;
     }
+
 
     @GetMapping("")
     public String afterLogin(@AuthenticationPrincipal CurrentUser customUser,
@@ -25,6 +33,11 @@ public class AppController {
         User entityUser = customUser.getUser();
         User myUser = userService.findByUsername(entityUser.getUsername());
         model.addAttribute("username", myUser.getUsername());
+        Role admin = roleRepository.findByName("ROLE_ADMIN");
+        Set<Role> roleList = myUser.getRoles();
+        if (roleList.contains(admin)) {
+            return "admin";
+        }
         return "app";
     }
 }
