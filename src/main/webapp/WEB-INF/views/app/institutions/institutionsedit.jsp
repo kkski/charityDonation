@@ -4,39 +4,30 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+
 <jsp:include page="../../headerloggedin.jsp"/>
 
 <section class="login-page">
     <h2>Edytuj organizację</h2>
 
-
-    <section>
-        <div class="help--slides active">
-            <div>
-                <h3>Dane edytowanej organizacji</h3>
-                <ul>
-                    <li>Nazwa: ${institutionToChange.name}</li>
-                    <li>Opis: ${institutionToChange.description}</li>
-                </ul>
-            </div>
-    </section>
-
-        </div>
-
     <form:form method="POST" modelAttribute="institution" class="form-signin">
         <spring:bind path="name">
             <div class="form-group">
+                <p class="title">Nazwa instytucji:</p>
                 <form:input type="text" name="name" placeholder="Nazwa organizacji" path="name"/>
+                <p class="subtitle"><form:errors path="name"/></p>
             </div>
         </spring:bind>
         <spring:bind path="description">
             <div class="form-group">
-                <form:input type="text" name="description" placeholder="Opis działalności" path="description"/>
+                <p class="title">Opis instytucji:</p>
+                <form:input type="text" name="description" placeholder="Opis działalności" path="description" class="title"/>
+                <p class="subtitle"><form:errors path="description"/></p>
             </div>
         </spring:bind>
 
         <div class="form-group form-group--buttons">
-            <button class="btn" type="submit">Dodaj instytucję</button>
+            <button class="btn" type="submit">Edytuj instytucję</button>
         </div>
     </form:form>
 </section>

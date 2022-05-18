@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -30,7 +31,13 @@
             <li><a href="index.html" class="btn btn--without-border active">Start</a></li>
             <li><a href="index.html#steps" class="btn btn--without-border">O co chodzi?</a></li>
             <li><a href="index.html#about-us" class="btn btn--without-border">O nas</a></li>
-            <li><a href="/admin/institutions" class="btn btn--without-border">Fundacje i organizacje</a></li>
+            <sec:authorize access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
+            <li><a href="/donation" class="btn btn--without-border">Przekaż dary</a></li>
+            </sec:authorize>
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                <li><a href="/admin/institutions" class="btn btn--without-border">Fundacje i organizacje</a></li>
+            <li><a href="/admin/admins" class="btn btn--without-border">Zarządzaj administratorami</a></li>
+            </sec:authorize>
             <li><a href="index.html#contact" class="btn btn--without-border">Kontakt</a></li>
         </ul>
     </nav>

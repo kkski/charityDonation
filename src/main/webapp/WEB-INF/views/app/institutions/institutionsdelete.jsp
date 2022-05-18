@@ -8,9 +8,9 @@
 
 <section class="login-page">
     <h2>Usuń organizację</h2>
-    <div class="col">
-        <div class="title">Nazwa instytucji: ${institutionToDelete.name}</div>
-        <div class="subtitle">Opis instytucji: ${institutionToDelete.description}</div>
+
+    <h3>Nazwa instytucji: ${institutionToDelete.name}</h3>
+    <h3>Opis instytucji: ${institutionToDelete.description}</h3>
     </div>
     <a href="/admin/institutions/delete/${institutionToDelete.id}/confirm">Potwierdź usunięcie</a>
 </section>

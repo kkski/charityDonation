@@ -168,9 +168,11 @@ document.addEventListener("DOMContentLoaded", function() {
       let checkboxes = document.getElementsByName("categories");
       checkboxes.forEach(function(e) {
         if (e.checked) {
-          categories.push(e.value);
+          categories.push(e.getAttribute("nameC"));
         }
       });
+
+      console.log(categories);
 
       // check chosen institution
       let institutionR;
@@ -180,10 +182,10 @@ document.addEventListener("DOMContentLoaded", function() {
           institutionR = e.getAttribute("nameI");
         }
       })
+      console.log(institutionR)
 
 
       let quantityR = document.getElementById("quantity");
-
       let streetR = document.getElementById("street");
       let cityR = document.getElementById("city");
       let zipCodeR = document.getElementById("zipCode");
@@ -191,7 +193,8 @@ document.addEventListener("DOMContentLoaded", function() {
       let timeR = document.getElementById("time");
       let commentR = document.getElementById("comment");
 
-      document.getElementById("resultQuantity").innerHTML = quantityR.value + " worki darów";
+
+      document.getElementById("resultQuantity").innerHTML = quantityR.value + " worki darów z kategorii " + categories.join(", ");
       document.getElementById("resultInstitutionName").innerHTML = "Dla fundacji " + institutionR;
       document.getElementById("resultStreet").innerHTML = streetR.value;
       document.getElementById("resultCity").innerHTML = cityR.value;

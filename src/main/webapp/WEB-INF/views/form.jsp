@@ -4,13 +4,14 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<%--WALIDACJA, KATEGORIE W PODSUMOWANIE--%>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>Document</title>
+    <title>Formularz donacji</title>
 
     <link rel="stylesheet" href="<c:url value="resources/css/style.css"/>"/>
     <script src="<c:url value="/resources/js/app.js" />"></script>
@@ -93,17 +94,20 @@
                     <c:forEach var="category" items="${categories}">
                         <div class="form-group form-group--checkbox">
                             <label>
-                                <form:checkbox   class="form-group form-group--checkbox"
+                                <form:checkbox class="form-group form-group--checkbox"
                                                  path="categories"
-                                                 value="${category}"/>
-                                <form:errors path="categories"></form:errors>
+                                                 value="${category}"
+                                                    nameC="${category.name}"/>
                                 <span class="checkbox"></span>
-                                <span name="categories" class="description"
+                                <span class="description"
                                 >${category.name}</span
                                 >
                             </label>
                         </div>
                     </c:forEach>
+
+                    <form:errors path="categories"/>
+
                 </spring:bind>
                 <div class="form-group form-group--buttons">
                     <button type="button" class="btn next-step">Dalej</button>
@@ -124,7 +128,7 @@
                                         step="1"
                                         min="1"/>
                         </label>
-                        <form:errors path="categories"></form:errors>
+                        <form:errors path="quantity"/>
                     </div>
                 </spring:bind>
 
@@ -158,6 +162,7 @@
                         </c:forEach>
 
                     </div>
+                    <form:errors path="institution"/>
                 </spring:bind>
 
                 <div class="form-group form-group--buttons">
@@ -176,16 +181,19 @@
                         <h4>Adres odbioru</h4>
                         <div class="form-group form-group--inline">
                             <label> Ulica <form:input id="street" path="street" /> </label>
+                            <form:errors path="street"/>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label> Miasto  <form:input id="city" path="city"/> </label>
+                            <form:errors path="city"/>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label>
                                 Kod pocztowy  <form:input id="zipCode" path="zipCode" />
                             </label>
+                            <form:errors path="zipCode"/>
                         </div>
 
                     </div>
@@ -194,16 +202,19 @@
                         <h4>Termin odbioru</h4>
                         <div class="form-group form-group--inline">
                             <label> Data <form:input id="date" type="date" path="pickUpDate"/> </label>
+                            <form:errors path="pickUpDate"/>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label> Godzina <form:input id="time" type="time" path="pickUpTime" /> </label>
+                            <form:errors path="pickUpTime"/>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label>
                                 Uwagi dla kuriera
                                     <form:textarea id="comment" path="pickUpComment"/>
+                                <form:errors path="pickUpComment"/>
                             </label>
                         </div>
                     </div>
@@ -224,7 +235,7 @@
                             <li>
                               <span class="icon icon-bag"></span>
                               <span id="resultQuantity" class="summary--text"
-                              ></span
+                              >z kategorii<span id="resultCategories" class="summary--text"/></span
                               >
                             </li>
 

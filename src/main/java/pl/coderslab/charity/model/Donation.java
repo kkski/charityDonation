@@ -26,17 +26,16 @@ public class Donation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-
+    @NotNull(message = "Wybierz ilość")
     private Integer quantity;
-    @NotEmpty
+    @NotEmpty(message = "Musisz wybrać kategorie")
     @ManyToMany
     private List<Category> categories;
-    @NotNull
+    @NotNull(message = "Musisz wybrać instytucję")
     @ManyToOne
     private Institution institution;
-    @NotEmpty(message = "Wprowadź wartość")
-    @NotNull(message = "Wprowadź wartość")
-    @Size(min=4, message = "Wprowadź minimum 4 litery.")
+    @NotBlank(message = "Wprowadź wartość")
+    @Size(min=4, message = "")
     private String street;
     @NotEmpty(message = "Wprowadź wartość")
     @NotNull(message = "Wprowadź wartość")

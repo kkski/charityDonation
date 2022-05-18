@@ -28,6 +28,13 @@ public class DonationController {
         this.donationRepository = donationRepository;
     }
 
+    @ModelAttribute
+    public void init(Model model) {
+        model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("institutions", institutionRepository.findAll());
+
+    }
+
     @GetMapping("/donation")
     public String donateAction(Model model,
                                @Valid @ModelAttribute("donation") Donation donation,
@@ -39,19 +46,20 @@ public class DonationController {
             model.addAttribute("categories", emptyCategories);
             return "form";
         }
-        model.addAttribute("institutions", institutionRepository.findAll());
+
         model.addAttribute("donation", new Donation());
-        model.addAttribute("categories", categoryRepository.findAll());
+
         return "form";
     }
 
     @PostMapping("/donation")
-    public String addDonation(Model model,
-            @ModelAttribute("donation") Donation donation
+    public String addDonation(
+            @Valid @ModelAttribute("donation") Donation donation,
+                              BindingResult bindingResult
                              ) {
-//        if (bindingResult.hasErrors()) {
-//            return "form";
-//        }
+        if (bindingResult.hasErrors()) {
+            return "form";
+        }
 
         Donation myDonation = new Donation();
 

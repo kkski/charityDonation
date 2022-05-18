@@ -22,10 +22,8 @@ public class Institution {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-    @NotBlank(message = "Wprowadź wartość")
     @Size(min=4, message = "Wprowadź minimum 4 litery.")
     private String name;
-    @NotBlank(message = "Wprowadź wartość")
     @Size(min=4, message = "Wprowadź minimum 4 litery.")
     private String description;
     @OneToMany(mappedBy = "institution", orphanRemoval = true)

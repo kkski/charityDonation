@@ -14,7 +14,7 @@
                 <c:if test="${loop.index % 2 == 0}"><li></c:if>
                 <div class="col">
                     <div class="title">${i.name}</div>
-                    <div class="subtitle">${i.description}</div>
+                    <div class="subtitle">Cel i misja: ${i.description}</div>
                     <div class="subtitle"><a href="/admin/institutions/edit/${i.id}">Edytuj</a> <a href="/admin/institutions/delete/${i.id}">Usuń</a></div>
 
                 </div>

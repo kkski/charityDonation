@@ -1,6 +1,7 @@
 package pl.coderslab.charity;
 
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,13 +30,16 @@ public class HomeController {
         this.userService = userService;
     }
 
-    @RequestMapping("/")
-    public String homeAction(Model model){
-
+    @ModelAttribute
+    public void init(Model model) {
         model.addAttribute("institutions", institutionRepository.findAll(PageRequest.ofSize(4)).getContent());
         model.addAttribute("donationsAmount", donationRepository.count());
         model.addAttribute("bagsAmount", donationRepository.findAllQuantityAndSum().orElse(0));
+    }
 
+
+    @RequestMapping("/")
+    public String homeAction(){
         return "index";
     }
 
@@ -64,7 +68,7 @@ public class HomeController {
                            BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            return "admin/register";
+            return "/register";
         }
         userService.saveUser(userForm);
         return "redirect:/";

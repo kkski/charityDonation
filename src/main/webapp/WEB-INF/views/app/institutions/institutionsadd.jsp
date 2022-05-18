@@ -11,14 +11,19 @@
     <form:form method="POST" modelAttribute="institution" class="form-signin">
         <spring:bind path="name">
             <div class="form-group">
+                <p class="title">Nazwa instytucji:</p>
                 <form:input type="text" name="name" placeholder="Nazwa organizacji" path="name"/>
+                <p class="subtitle"><form:errors path="name"/></p>
             </div>
         </spring:bind>
         <spring:bind path="description">
             <div class="form-group">
-                <form:input type="text" name="description" placeholder="Opis działalności" path="description"/>
+                <p class="title">Opis instytucji:</p>
+                <form:input type="text" name="description" placeholder="Opis działalności" path="description" class="title"/>
+                <p class="subtitle"><form:errors path="description"/></p>
             </div>
         </spring:bind>
+
 
         <div class="form-group form-group--buttons">
             <button class="btn" type="submit">Dodaj instytucję</button>

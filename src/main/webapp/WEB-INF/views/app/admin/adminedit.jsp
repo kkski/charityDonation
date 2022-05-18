@@ -27,28 +27,33 @@
             <spring:bind path="username">
                 <div class="form-group">
                     <form:input type="text" name="username" placeholder="Username" path="username"/>
+                    <form:errors path="username"></form:errors>
                 </div>
             </spring:bind>
             <spring:bind path="firstName">
                 <div class="form-group">
                     <form:input type="text" name="firstName" placeholder="First name" path="firstName"/>
+                    <form:errors path="firstName"></form:errors>
                 </div>
             </spring:bind>
             <spring:bind path="lastName">
                 <div class="form-group">
                     <form:input type="lastName" name="lastName" placeholder="Last name" path="lastName"/>
+                    <form:errors path="lastName"></form:errors>
                 </div>
             </spring:bind>
 
             <spring:bind path="email">
                 <div class="form-group">
                     <form:input type="email" name="email" placeholder="Email" path="email"/>
+                    <form:errors path="email"></form:errors>
                 </div>
             </spring:bind>
 
             <spring:bind path="password">
                 <div class="form-group">
                     <form:input type="password" name="password" placeholder="Hasło" path="password"/>
+                    <form:errors path="password"></form:errors>
                 </div>
             </spring:bind>
             <div class="form-group">
