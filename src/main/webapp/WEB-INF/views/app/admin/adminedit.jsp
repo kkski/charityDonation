@@ -13,24 +13,27 @@
     <form:form method="POST" modelAttribute="userForm" class="form-signin">
 
         <spring:bind path="username">
-            <p class="title">Nazwa użytkownika:</p>
+
             <div class="form-group">
+                <p class="title">Nazwa użytkownika:</p>
                 <form:input type="text" name="username" path="username"/>
                 <p class="subtitle"><form:errors path="username"/></p>
             </div>
         </spring:bind>
 
         <spring:bind path="firstName">
-            <p class="title">Imię:</p>
+
             <div class="form-group">
+                <p class="title">Imię:</p>
                 <form:input type="text" name="firstName" path="firstName"/>
                 <p class="subtitle"><form:errors path="firstName"/></p>
             </div>
         </spring:bind>
 
         <spring:bind path="lastName">
-            <p class="title">Nazwisko:</p>
+
             <div class="form-group">
+                <p class="title">Nazwisko:</p>
                 <form:input type="lastName" name="lastName" path="lastName"/>
                 <p class="subtitle"><form:errors path="lastName"/></p>
             </div>
@@ -58,7 +61,7 @@
         </div>
 
         <div class="form-group form-group--buttons">
-            <button class="btn" type="submit">Załóż konto</button>
+            <button class="btn" type="submit">Edytuj konto</button>
         </div>
     </form:form>
     </section>

@@ -10,39 +10,56 @@
     <section class="login-page">
       <h2>Załóż konto</h2>
       <form:form method="POST" modelAttribute="userForm" class="form-signin">
+
         <spring:bind path="username">
+
           <div class="form-group">
-            <form:input type="text" name="username" placeholder="Username" path="username"/>
+            <p class="title">Nazwa użytkownika:</p>
+            <form:input type="text" name="username" path="username"/>
+            <p class="subtitle"><form:errors path="username"/></p>
           </div>
         </spring:bind>
+
         <spring:bind path="firstName">
+
           <div class="form-group">
-            <form:input type="text" name="firstName" placeholder="First name" path="firstName"/>
+            <p class="title">Imię:</p>
+            <form:input type="text" name="firstName" path="firstName"/>
+            <p class="subtitle"><form:errors path="firstName"/></p>
           </div>
         </spring:bind>
+
         <spring:bind path="lastName">
+
           <div class="form-group">
-            <form:input type="lastName" name="lastName" placeholder="Last name" path="lastName"/>
+            <p class="title">Nazwisko:</p>
+            <form:input type="lastName" name="lastName" path="lastName"/>
+            <p class="subtitle"><form:errors path="lastName"/></p>
           </div>
         </spring:bind>
 
         <spring:bind path="email">
-        <div class="form-group">
-          <form:input type="email" name="email" placeholder="Email" path="email"/>
-        </div>
+          <div class="form-group">
+            <p class="title">Email:</p>
+            <form:input type="email" name="email" path="email"/>
+            <p class="subtitle"><form:errors path="email"/></p>
+          </div>
         </spring:bind>
 
         <spring:bind path="password">
-        <div class="form-group">
-          <form:input type="password" name="password" placeholder="Hasło" path="password"/>
-        </div>
+          <div class="form-group">
+            <p class="title">Hasło:</p>
+            <form:input type="password" name="password" path="password"/>
+            <p class="subtitle"><form:errors path="password"/></p>
+          </div>
         </spring:bind>
         <div class="form-group">
-          <input type="password" name="password2" placeholder="Powtórz hasło" />
+          <p class="title">Potwierdź hasło:</p>
+          <input type="password" name="password2"/>
+
         </div>
 
         <div class="form-group form-group--buttons">
-          <a href="/login" class="btn btn--without-border">Zaloguj się</a>
           <button class="btn" type="submit">Załóż konto</button>
         </div>
       </form:form>

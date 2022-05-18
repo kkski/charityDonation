@@ -53,6 +53,11 @@ public class HomeController {
         return "/login";
     }
 
+    @GetMapping("/logout")
+    public String logout() {
+        return "logout";
+    }
+
     @GetMapping("/register")
     public String registration(Model model) {
         model.addAttribute("userForm", new UserDto());

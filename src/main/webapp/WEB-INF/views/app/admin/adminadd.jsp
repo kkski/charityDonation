@@ -4,32 +4,34 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<jsp:include page="headerloggedadmin.jsp"/>
+<jsp:include page="../../headerloggedin.jsp"/>
 
     <h2>Dodaj administratora</h2>
     <section class="login-page">
-        <h2>Załóż konto</h2>
         <form:form method="POST" modelAttribute="userForm" class="form-signin">
-            
+
             <spring:bind path="username">
-                <p class="title">Nazwa użytkownika:</p>
+
                 <div class="form-group">
+                    <p class="title">Nazwa użytkownika:</p>
                     <form:input type="text" name="username" path="username"/>
                     <p class="subtitle"><form:errors path="username"/></p>
                 </div>
             </spring:bind>
 
             <spring:bind path="firstName">
-                <p class="title">Imię:</p>
+
                 <div class="form-group">
+                    <p class="title">Imię:</p>
                     <form:input type="text" name="firstName" path="firstName"/>
                     <p class="subtitle"><form:errors path="firstName"/></p>
                 </div>
             </spring:bind>
 
             <spring:bind path="lastName">
-                <p class="title">Nazwisko:</p>
+
                 <div class="form-group">
+                    <p class="title">Nazwisko:</p>
                     <form:input type="lastName" name="lastName" path="lastName"/>
                     <p class="subtitle"><form:errors path="lastName"/></p>
                 </div>
