@@ -10,60 +10,57 @@
 
     <h2>Edytuj administratora</h2>
 
-    <section>
-        <div class="help--slides active">
-            <div>
-                <h3>Dane edytowanego administratora</h3>
-                <ul>
-                    <li>Nazwa: ${userToChange.username}</li>
-                    <li>Imię: ${userToChange.firstName}</li>
-                    <li>Nazwisko: ${userToChange.lastName}</li>
-                    <li>Email: ${userToChange.email}</li>
-                </ul>
-            </div>
-    </section>
+    <form:form method="POST" modelAttribute="userForm" class="form-signin">
 
-        <form:form method="POST" modelAttribute="userForm" class="form-signin">
-            <spring:bind path="username">
-                <div class="form-group">
-                    <form:input type="text" name="username" placeholder="Username" path="username"/>
-                    <form:errors path="username"></form:errors>
-                </div>
-            </spring:bind>
-            <spring:bind path="firstName">
-                <div class="form-group">
-                    <form:input type="text" name="firstName" placeholder="First name" path="firstName"/>
-                    <form:errors path="firstName"></form:errors>
-                </div>
-            </spring:bind>
-            <spring:bind path="lastName">
-                <div class="form-group">
-                    <form:input type="lastName" name="lastName" placeholder="Last name" path="lastName"/>
-                    <form:errors path="lastName"></form:errors>
-                </div>
-            </spring:bind>
-
-            <spring:bind path="email">
-                <div class="form-group">
-                    <form:input type="email" name="email" placeholder="Email" path="email"/>
-                    <form:errors path="email"></form:errors>
-                </div>
-            </spring:bind>
-
-            <spring:bind path="password">
-                <div class="form-group">
-                    <form:input type="password" name="password" placeholder="Hasło" path="password"/>
-                    <form:errors path="password"></form:errors>
-                </div>
-            </spring:bind>
+        <spring:bind path="username">
+            <p class="title">Nazwa użytkownika:</p>
             <div class="form-group">
-                <input type="password" name="password2" placeholder="Powtórz hasło" />
+                <form:input type="text" name="username" path="username"/>
+                <p class="subtitle"><form:errors path="username"/></p>
             </div>
+        </spring:bind>
 
-            <div class="form-group form-group--buttons">
-                <button class="btn" type="submit">Dokonaj zmian</button>
+        <spring:bind path="firstName">
+            <p class="title">Imię:</p>
+            <div class="form-group">
+                <form:input type="text" name="firstName" path="firstName"/>
+                <p class="subtitle"><form:errors path="firstName"/></p>
             </div>
-        </form:form>
+        </spring:bind>
+
+        <spring:bind path="lastName">
+            <p class="title">Nazwisko:</p>
+            <div class="form-group">
+                <form:input type="lastName" name="lastName" path="lastName"/>
+                <p class="subtitle"><form:errors path="lastName"/></p>
+            </div>
+        </spring:bind>
+
+        <spring:bind path="email">
+            <div class="form-group">
+                <p class="title">Email:</p>
+                <form:input type="email" name="email" path="email"/>
+                <p class="subtitle"><form:errors path="email"/></p>
+            </div>
+        </spring:bind>
+
+        <spring:bind path="password">
+            <div class="form-group">
+                <p class="title">Hasło:</p>
+                <form:input type="password" name="password" path="password"/>
+                <p class="subtitle"><form:errors path="password"/></p>
+            </div>
+        </spring:bind>
+        <div class="form-group">
+            <p class="title">Potwierdź hasło:</p>
+            <input type="password" name="password2"/>
+
+        </div>
+
+        <div class="form-group form-group--buttons">
+            <button class="btn" type="submit">Załóż konto</button>
+        </div>
+    </form:form>
     </section>
 
 <%@ include file="../../footer.jsp" %>

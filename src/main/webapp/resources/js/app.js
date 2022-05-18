@@ -193,7 +193,7 @@ document.addEventListener("DOMContentLoaded", function() {
       let commentR = document.getElementById("comment");
 
 
-      document.getElementById("resultQuantity").innerHTML = quantityR.value + " worki darów z kategorii " + categories.join(", ");
+      document.getElementById("resultQuantity").innerHTML = quantityR.value + " worki darów z kategorii: " + categories.join(", ");
       document.getElementById("resultInstitutionName").innerHTML = "Dla fundacji " + institutionR;
       document.getElementById("resultStreet").innerHTML = streetR.value;
       document.getElementById("resultCity").innerHTML = cityR.value;

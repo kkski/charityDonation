@@ -22,15 +22,16 @@
                 <ul class="dropdown">
                     <li><a href="#">Profil</a></li>
                     <li><a href="#">Moje zbiórki</a></li>
-                    <li><a href="/logout">Wyloguj</a></li>
+                    <li><form action="<c:url value="/logout"/>" method="post">
+                        <input type="submit" value="Wyloguj">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    </form></li>
                 </ul>
             </li>
         </ul>
 
         <ul>
             <li><a href="index.html" class="btn btn--without-border active">Start</a></li>
-            <li><a href="index.html#steps" class="btn btn--without-border">O co chodzi?</a></li>
-            <li><a href="index.html#about-us" class="btn btn--without-border">O nas</a></li>
             <sec:authorize access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
             <li><a href="/donation" class="btn btn--without-border">Przekaż dary</a></li>
             </sec:authorize>

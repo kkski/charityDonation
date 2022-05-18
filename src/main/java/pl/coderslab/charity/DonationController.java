@@ -1,37 +1,51 @@
 package pl.coderslab.charity;
 
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.model.Category;
 import pl.coderslab.charity.model.Donation;
+import pl.coderslab.charity.model.User;
 import pl.coderslab.charity.repositories.CategoryRepository;
 import pl.coderslab.charity.repositories.DonationRepository;
 import pl.coderslab.charity.repositories.InstitutionRepository;
+import pl.coderslab.charity.services.CurrentUser;
+import pl.coderslab.charity.services.UserService;
 
 import javax.validation.Valid;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping("")
+@PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
 public class DonationController {
     private final InstitutionRepository institutionRepository;
     private final CategoryRepository categoryRepository;
     private final DonationRepository donationRepository;
+    private final UserService userService;
 
-    public DonationController(InstitutionRepository institutionRepository, CategoryRepository categoryRepository, DonationRepository donationRepository) {
+    public DonationController(InstitutionRepository institutionRepository, CategoryRepository categoryRepository, DonationRepository donationRepository, UserService userService) {
         this.institutionRepository = institutionRepository;
         this.categoryRepository = categoryRepository;
         this.donationRepository = donationRepository;
+        this.userService = userService;
     }
 
     @ModelAttribute
-    public void init(Model model) {
+    public void init(Model model,
+                     @AuthenticationPrincipal CurrentUser customUser) {
         model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("institutions", institutionRepository.findAll());
+
+        User entityUser = customUser.getUser();
+
+        User myUser = userService.findByUsername(entityUser.getUsername());
+
+        model.addAttribute("user", myUser);
 
     }
 
@@ -75,7 +89,7 @@ public class DonationController {
 
         donationRepository.save(myDonation);
 
-        return "redirect:/";
+        return "redirect:/app";
 
     }
 }

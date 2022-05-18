@@ -77,38 +77,5 @@ public class AdminController {
         return "redirect:/admin/admins";
     }
 
-    @GetMapping("/admins/edit/{adminId}")
-    public String editAdminForm(@AuthenticationPrincipal CurrentUser customUser,
-                                      Model model,
-                                      @PathVariable("adminId") Long adminId) {
-
-        User entityUser = customUser.getUser();
-        User myUser = userService.findByUsername(entityUser.getUsername());
-        model.addAttribute("user", myUser);
-        model.addAttribute("userToChange", userService.findById(adminId));
-        //userdto must get info from usertochange
-        model.addAttribute("userForm", new UserDto());
-        return "app/admin/adminedit";
-
-    }
-
-    @PostMapping("/admins/edit/{adminId}")
-    public String doEditAdmin(@Valid @ModelAttribute("userForm") UserDto userForm,
-                             BindingResult bindingResult,
-                              @PathVariable("adminId") Long adminId) {
-
-        if (bindingResult.hasErrors()) {
-            return "app/institutions/institutionsedit";
-        }
-        User userToChange = userService.findById(adminId);
-        userToChange.setUsername(userForm.getUsername());
-        userToChange.setEmail(userForm.getEmail());
-        userToChange.setLastName(userForm.getLastName());
-        userToChange.setFirstName(userForm.getFirstName());
-        userToChange.setPassword(userForm.getPassword());
-        userService.saveAdmin(userForm);
-        return "redirect:/admin/admins";
-    }
-
 
 }

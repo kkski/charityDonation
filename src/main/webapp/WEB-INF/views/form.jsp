@@ -3,6 +3,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <%--WALIDACJA, KATEGORIE W PODSUMOWANIE--%>
 <!DOCTYPE html>
@@ -20,23 +21,30 @@
 <header class="header--form-page">
     <nav class="container container--70">
         <ul class="nav--actions">
-            <li><a href="/login">Zaloguj</a></li>
-            <li class="highlighted"><a href="/register">Załóż konto</a></li>
+            <li class="logged-user">
+                Witaj ${user.firstName}
+                <ul class="dropdown">
+                    <li><a href="#">Profil</a></li>
+                    <li><a href="#">Moje zbiórki</a></li>
+                    <li><a href="/logout">Wyloguj</a></li>
+                </ul>
+            </li>
         </ul>
 
         <ul>
-            <li><a href="index.html" class="btn btn--without-border active">Start</a></li>
-            <li><a href="index.html#steps" class="btn btn--without-border">O co chodzi?</a></li>
-            <li><a href="index.html#about-us" class="btn btn--without-border">O nas</a></li>
-            <li><a href="/app/institutions" class="btn btn--without-border">Fundacje i organizacje</a></li>
-            <li><a href="index.html#contact" class="btn btn--without-border">Kontakt</a></li>
+                <li><a href="index.html" class="btn btn--without-border active">Start</a></li>
+                <sec:authorize access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
+                <li><a href="/donation" class="btn btn--without-border">Przekaż dary</a></li>
+                 </sec:authorize>
+                 <li><a href="/app/institutions" class="btn btn--without-border">Fundacje i organizacje</a></li>
+                 <li><a href="index.html#contact" class="btn btn--without-border">Kontakt</a></li>
         </ul>
     </nav>
 
     <div class="slogan container container--90">
         <div class="slogan--item">
             <h1>
-                Oddaj rzeczy, których już nie chcesz<br />
+                Oddaj rzeczy, których już nie chcesz<br/>
                 <span class="uppercase">potrzebującym</span>
             </h1>
 
@@ -95,9 +103,9 @@
                         <div class="form-group form-group--checkbox">
                             <label>
                                 <form:checkbox class="form-group form-group--checkbox"
-                                                 path="categories"
-                                                 value="${category}"
-                                                    nameC="${category.name}"/>
+                                               path="categories"
+                                               value="${category}"
+                                               nameC="${category.name}"/>
                                 <span class="checkbox"></span>
                                 <span class="description"
                                 >${category.name}</span
@@ -149,7 +157,8 @@
 
                             <div class="form-group form-group--checkbox">
                                 <label>
-                                    <form:radiobutton name="institution" value="${institution}" path="institution" nameI="${institution.name}"/>
+                                    <form:radiobutton name="institution" value="${institution}" path="institution"
+                                                      nameI="${institution.name}"/>
                                     <span class="checkbox radio"></span>
                                     <span class="description">
                               <div class="title">${institution.name}</div>
@@ -180,18 +189,18 @@
                     <div class="form-section--column">
                         <h4>Adres odbioru</h4>
                         <div class="form-group form-group--inline">
-                            <label> Ulica <form:input id="street" path="street" /> </label>
+                            <label> Ulica <form:input id="street" path="street"/> </label>
                             <form:errors path="street"/>
                         </div>
 
                         <div class="form-group form-group--inline">
-                            <label> Miasto  <form:input id="city" path="city"/> </label>
+                            <label> Miasto <form:input id="city" path="city"/> </label>
                             <form:errors path="city"/>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label>
-                                Kod pocztowy  <form:input id="zipCode" path="zipCode" />
+                                Kod pocztowy <form:input id="zipCode" path="zipCode"/>
                             </label>
                             <form:errors path="zipCode"/>
                         </div>
@@ -206,14 +215,14 @@
                         </div>
 
                         <div class="form-group form-group--inline">
-                            <label> Godzina <form:input id="time" type="time" path="pickUpTime" /> </label>
+                            <label> Godzina <form:input id="time" type="time" path="pickUpTime"/> </label>
                             <form:errors path="pickUpTime"/>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label>
                                 Uwagi dla kuriera
-                                    <form:textarea id="comment" path="pickUpComment"/>
+                                <form:textarea id="comment" path="pickUpComment"/>
                                 <form:errors path="pickUpComment"/>
                             </label>
                         </div>
@@ -225,55 +234,55 @@
                 </div>
             </div>
 
-<%--                    <!-- STEP 5 -->--%>
-                    <div data-step="5">
-                      <h3>Podsumowanie Twojej darowizny</h3>
-                      <div class="summary">
-                        <div class="form-section">
-                          <h4>Oddajesz:</h4>
-                          <ul>
+            <%--                    <!-- STEP 5 -->--%>
+            <div data-step="5">
+                <h3>Podsumowanie Twojej darowizny</h3>
+                <div class="summary">
+                    <div class="form-section">
+                        <h4>Oddajesz:</h4>
+                        <ul>
                             <li>
-                              <span class="icon icon-bag"></span>
-                              <span id="resultQuantity" class="summary--text"
-                              >z kategorii<span id="resultCategories" class="summary--text"/></span
-                              >
+                                <span class="icon icon-bag"></span>
+                                <span id="resultQuantity" class="summary--text"
+                                >z kategorii<span id="resultCategories" class="summary--text"/></span
+                                >
                             </li>
 
                             <li>
-                              <span class="icon icon-hand"></span>
-                              <span id="resultInstitutionName" class="summary--text"
-                              ></span
-                              >
+                                <span class="icon icon-hand"></span>
+                                <span id="resultInstitutionName" class="summary--text"
+                                ></span
+                                >
                             </li>
-                          </ul>
-                        </div>
+                        </ul>
+                    </div>
 
-                        <div class="form-section form-section--columns">
-                          <div class="form-section--column">
+                    <div class="form-section form-section--columns">
+                        <div class="form-section--column">
                             <h4>Adres odbioru:</h4>
                             <ul>
-                              <li id="resultStreet"></li>
-                              <li id="resultCity"></li>
-                              <li id="resultZipCode"></li>
+                                <li id="resultStreet"></li>
+                                <li id="resultCity"></li>
+                                <li id="resultZipCode"></li>
                             </ul>
-                          </div>
+                        </div>
 
-                          <div class="form-section--column">
+                        <div class="form-section--column">
                             <h4>Termin odbioru:</h4>
                             <ul>
-                              <li id="resultPickUpDate"></li>
-                              <li id="resultPickUpTime"></li>
-                              <li id="resultPickUpComment"></li>
+                                <li id="resultPickUpDate"></li>
+                                <li id="resultPickUpTime"></li>
+                                <li id="resultPickUpComment"></li>
                             </ul>
-                          </div>
                         </div>
-                      </div>
-
-                      <div class="form-group form-group--buttons">
-                        <button type="button" class="btn prev-step">Wstecz</button>
-                        <button type="submit" class="btn">Potwierdzam</button>
-                      </div>
                     </div>
+                </div>
+
+                <div class="form-group form-group--buttons">
+                    <button type="button" class="btn prev-step">Wstecz</button>
+                    <button type="submit" class="btn">Potwierdzam</button>
+                </div>
+            </div>
 
 
         </form:form>

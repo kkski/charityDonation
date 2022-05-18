@@ -9,14 +9,14 @@ import javax.validation.constraints.NotBlank;
 @Setter
 @NoArgsConstructor
 public class UserDto {
-    @NotBlank
+    @NotBlank(message = "Wartość nie może być pusta")
     private String username;
-    @NotBlank
+    @NotBlank(message = "Wartość nie może być pusta")
     private String firstName;
-    @NotBlank
+    @NotBlank(message = "Wartość nie może być pusta")
     private String lastName;
-    @NotBlank
+    @NotBlank(message = "Wartość nie może być pusta")
     private String email;
-    @NotBlank
+    @NotBlank(message = "Wartość nie może być pusta")
     private String password;
 }
