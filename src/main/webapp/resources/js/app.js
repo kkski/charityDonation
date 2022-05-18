@@ -172,7 +172,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
       });
 
-      console.log(categories);
 
       // check chosen institution
       let institutionR;
@@ -182,7 +181,7 @@ document.addEventListener("DOMContentLoaded", function() {
           institutionR = e.getAttribute("nameI");
         }
       })
-      console.log(institutionR)
+
 
 
       let quantityR = document.getElementById("quantity");
