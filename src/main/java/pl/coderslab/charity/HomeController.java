@@ -37,16 +37,10 @@ public class HomeController {
         model.addAttribute("bagsAmount", donationRepository.findAllQuantityAndSum().orElse(0));
     }
 
-
     @RequestMapping("/")
     public String homeAction(){
         return "index";
     }
-
-
-
-
-
 
     @GetMapping("/login")
     public String login() {
@@ -67,22 +61,19 @@ public class HomeController {
     public String register(@Valid @ModelAttribute("userForm") UserDto userForm,
                            BindingResult bindingResult) {
 
+        userService.extendValidation(userForm,bindingResult);
+
+//        if (userService.findByUsername(userForm.getUsername()).getPassword().) == false) {
+//            bindingResult.rejectValue("username", "username.exists",
+//                    "Taki uzytkownik juz istnieje!");
+//        }
+
         if (bindingResult.hasErrors()) {
             return "/register";
         }
+
         userService.saveUser(userForm);
         return "redirect:/";
     }
-
-
-//    @GetMapping("/logout")
-//    public String logout() {
-//        return "/admin/logout";
-//    }
-//
-//    @GetMapping("/404")
-//    public String display403Error() {
-//        return "/admin/403";
-//    }
 
 }

@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("")
+@RequestMapping("/app/donations")
 @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
 public class DonationController {
     private final InstitutionRepository institutionRepository;
@@ -63,7 +63,7 @@ public class DonationController {
 
         model.addAttribute("donation", new Donation());
 
-        return "form";
+        return "donations/donationform";
     }
 
     @PostMapping("/donation")

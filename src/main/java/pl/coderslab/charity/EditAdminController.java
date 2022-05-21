@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.model.User;
 import pl.coderslab.charity.model.UserDto;
+import pl.coderslab.charity.repositories.UserRepository;
 import pl.coderslab.charity.services.CurrentUser;
 import pl.coderslab.charity.services.UserService;
 
@@ -19,9 +20,11 @@ import javax.validation.Valid;
 public class EditAdminController {
 
     private final UserService userService;
+    private final UserRepository userRepository;
 
-    public EditAdminController(UserService userService) {
+    public EditAdminController(UserService userService, UserRepository userRepository) {
         this.userService = userService;
+        this.userRepository = userRepository;
     }
 
     @ModelAttribute
@@ -53,17 +56,21 @@ public class EditAdminController {
                               BindingResult bindingResult,
                               @PathVariable("adminId") Long adminId) {
 
+        userService.extendValidation(userForm, bindingResult);
+
         if (bindingResult.hasErrors()) {
             return "app/admin/adminedit";
         }
+
         User userToChange = userService.findById(adminId);
         userToChange.setUsername(userForm.getUsername());
         userToChange.setEmail(userForm.getEmail());
         userToChange.setLastName(userForm.getLastName());
         userToChange.setFirstName(userForm.getFirstName());
         userToChange.setPassword(userForm.getPassword());
-        userService.saveAdmin(userForm);
+        userRepository.save(userToChange);
         return "redirect:/admin/admins";
     }
+
 
 }

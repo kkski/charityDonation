@@ -7,11 +7,14 @@
 <jsp:include page="../../headerloggedin.jsp"/>
 
 <section class="login-page">
+    <h2>Usuń użytkownika</h2>
+    <div class="col">
+        <div class="title">Nazwa użytkownika: ${userToDelete.username}</div>
+        <div class="subtitle">Email: ${userToDelete.email}</div>
+    </div>
+    <a href="/admin/users/delete/${userToDelete.id}/confirm">Potwierdź usunięcie</a>
+</section>
 
-    <h2>Edytuj administratora</h2>
-
-    <jsp:include page="../../formuser.jsp"/>
-    </section>
 
 <%@ include file="../../footer.jsp" %>
 

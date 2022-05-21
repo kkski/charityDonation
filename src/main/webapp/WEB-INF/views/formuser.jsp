@@ -3,71 +3,63 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
-<%@ include file="header.jsp" %>
+<form:form method="POST" modelAttribute="userForm" class="form-signin">
 
-    <section class="login-page">
-      <h2>Załóż konto</h2>
-      <form:form method="POST" modelAttribute="userForm" class="form-signin">
+    <spring:bind path="username">
 
-        <spring:bind path="username">
-
-          <div class="form-group">
+        <div class="form-group">
             <p class="title">Nazwa użytkownika:</p>
             <form:input type="text" name="username" path="username"/>
             <p class="subtitle"><form:errors path="username"/></p>
-          </div>
-        </spring:bind>
+        </div>
+    </spring:bind>
 
-        <spring:bind path="firstName">
+    <spring:bind path="firstName">
 
-          <div class="form-group">
+        <div class="form-group">
             <p class="title">Imię:</p>
             <form:input type="text" name="firstName" path="firstName"/>
             <p class="subtitle"><form:errors path="firstName"/></p>
-          </div>
-        </spring:bind>
+        </div>
+    </spring:bind>
 
-        <spring:bind path="lastName">
+    <spring:bind path="lastName">
 
-          <div class="form-group">
+        <div class="form-group">
             <p class="title">Nazwisko:</p>
             <form:input type="lastName" name="lastName" path="lastName"/>
             <p class="subtitle"><form:errors path="lastName"/></p>
-          </div>
-        </spring:bind>
+        </div>
+    </spring:bind>
 
-        <spring:bind path="email">
-          <div class="form-group">
+    <spring:bind path="email">
+        <div class="form-group">
             <p class="title">Email:</p>
             <form:input type="email" name="email" path="email"/>
             <p class="subtitle"><form:errors path="email"/></p>
-          </div>
-        </spring:bind>
+        </div>
+    </spring:bind>
 
-        <spring:bind path="password">
-          <div class="form-group">
+    <spring:bind path="password">
+        <div class="form-group">
             <p class="title">Hasło:</p>
             <form:input type="password" name="password" path="password"/>
             <p class="subtitle"><form:errors path="password"/></p>
-          </div>
-        </spring:bind>
-        <spring:bind path="password2">
-        <div class="form-group">
-          <p class="title">Potwierdź hasło:</p>
-          <form:input type="password" name="password2" path="password2"/>
-          <p class="subtitle"><form:errors path="password2"/></p>
-
         </div>
-        </spring:bind>
-        <div class="form-group form-group--buttons">
-          <button class="btn" type="submit">Załóż konto</button>
-        </div>
-      </form:form>
-    </section>
+    </spring:bind>
+    <spring:bind path="password2">
+    <div class="form-group">
+        <p class="title">Potwierdź hasło:</p>
+        <form:input type="password" name="password2" path="password2"/>
+        <p class="subtitle"><form:errors path="password2"/></p>
 
-<%@ include file="footer.jsp" %>
+    </div>
+    </spring:bind>
 
-  </body>
-</html>
+    <div class="form-group form-group--buttons">
+        <button class="btn" type="submit">Wykonaj</button>
+    </div>
+</form:form>

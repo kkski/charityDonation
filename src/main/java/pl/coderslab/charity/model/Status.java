@@ -5,19 +5,24 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Entity
+@Table
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name="role")
-public class Role {
-
+public class Status {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String name;
+    @Column(name = "id", nullable = false)
+    private Long id;
+
+    private boolean pickedUp;
+
+    private LocalDateTime pickUpMoment;
+
+    @OneToOne
+    private Donation donation;
 
 }
-

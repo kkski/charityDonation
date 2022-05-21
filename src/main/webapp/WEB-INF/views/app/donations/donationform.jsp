@@ -5,7 +5,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<%--WALIDACJA, KATEGORIE W PODSUMOWANIE--%>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -289,6 +288,6 @@
     </div>
 </section>
 
-<%@ include file="footer.jsp" %>
+<%@ include file="../../footer.jsp" %>
 </body>
 </html>

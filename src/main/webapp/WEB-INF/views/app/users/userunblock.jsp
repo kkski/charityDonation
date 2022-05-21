@@ -7,11 +7,14 @@
 <jsp:include page="../../headerloggedin.jsp"/>
 
 <section class="login-page">
+    <h2>Odblokuj użytkownika</h2>
+    <div class="col">
+        <div class="title">Nazwa użytkownika: ${userToUnblock.username}</div>
+        <div class="subtitle">Email: ${userToUnblock.email}</div>
+    </div>
+    <a href="/admin/users/unblock/${userToUnblock.id}/confirm">Potwierdź odblokowanie</a>
+</section>
 
-    <h2>Edytuj administratora</h2>
-
-    <jsp:include page="../../formuser.jsp"/>
-    </section>
 
 <%@ include file="../../footer.jsp" %>
 

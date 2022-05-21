@@ -2,6 +2,7 @@ package pl.coderslab.charity.services;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
 import pl.coderslab.charity.model.Role;
 import pl.coderslab.charity.model.User;
 import pl.coderslab.charity.model.UserDto;
@@ -28,6 +29,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    @Override
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
@@ -35,6 +41,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findAllWhereRoleIsAdmin() {
         Role admin = roleRepository.findByName("ROLE_ADMIN");
+        return userRepository.findAll().stream().filter(user -> user.getRoles().contains(admin)).collect(Collectors.toList());
+    }
+    @Override
+    public List<User> findAllWhereRoleIsUser() {
+        Role admin = roleRepository.findByName("ROLE_USER");
         return userRepository.findAll().stream().filter(user -> user.getRoles().contains(admin)).collect(Collectors.toList());
     }
 
@@ -67,9 +78,50 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void updateLoggedUser(Long userId, UserDto dto) {
+        User userToSave = userRepository.getById(userId);
+        userToSave.setFirstName(dto.getFirstName());
+        userToSave.setLastName(dto.getLastName());
+        userToSave.setUsername(dto.getUsername());
+        userToSave.setEmail(dto.getEmail());
+        userToSave.setPassword(passwordEncoder.encode(dto.getPassword()));
+        userToSave.setEnabled(1);
+        userRepository.save(userToSave);
+    }
+
+    @Override
     public User findById(Long id) {
         return userRepository.getById(id);
     }
+
+    @Override
+    public void disableUser(Long userId) {
+        User user = userRepository.getById(userId);
+        user.setEnabled(0);
+        userRepository.save(user);
+    }
+//rozbić, uzyc repo nie serwis EXISTS
+    @Override
+    public void extendValidation(UserDto userForm, BindingResult bindingResult) {
+
+            if (!userForm.getPassword().equals(userForm.getPassword2())) {
+                bindingResult.rejectValue("password", "password",
+                        "Hasła do siebie nie pasują!");
+                bindingResult.rejectValue("password2", "password2",
+                        "Hasła do siebie nie pasują!");
+            }
+            if (userRepository.existsByUsername(userForm.getUsername()) == true) {
+                bindingResult.rejectValue("username", "username.exists",
+                        "Taki uzytkownik juz istnieje!");
+            }
+            if (userRepository.existsByEmail(userForm.getEmail()) == true) {
+                bindingResult.rejectValue("email", "email.exists",
+                        "Taki email jest juz w uzyciu!");
+            }
+
+    }
+
+
 }
 
 

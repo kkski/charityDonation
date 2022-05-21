@@ -8,10 +8,9 @@
 
 <section class="login-page">
 
-    <h2>Edytuj administratora</h2>
-
-    <jsp:include page="../../formuser.jsp"/>
-    </section>
+    <h2>Edytuj swój profil</h2>
+<jsp:include page="formuser.jsp"/>
+</section>
 
 <%@ include file="../../footer.jsp" %>
 
