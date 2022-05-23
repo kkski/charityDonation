@@ -8,14 +8,39 @@
 <section class="help">
     <h2>Zarządzaj donacjami</h2>
     <div class="help--slides active">
-        <ul class="help--slides-items">
+        <table>
+            <tbody>
+            <tr>
+                <td>Ilość</td>
+                <td>Kategorie:</td>
+                <td>Organizacja:</td>
+                <td>Ulica:</td>
+                <td>Miasto:</td>
+                <td>Kod pocztowy:</td>
+                <td>Data odbioru:</td>
+                <td>Godzina odbioru:</td>
+                <td>Komentarz:</td>
+                <td>Status:</td>
+                <td>Data potwierdzenia:</td>
+            </tr>
             <c:forEach items="${donations}" var="donation">
-            Dla: ${donation.institution.name}
-                Ilość: ${donation.quantity}
-
+                <tr>
+                <td>${donation.quantity}</td>
+                <td>${donation.categoriesNames}</td>
+                <td>${donation.institution.name}</td>
+                <td>${donation.street}</td>
+                <td>${donation.city}</td>
+                <td>${donation.zipCode}</td>
+                <td>${donation.pickUpDate}</td>
+                <td>${donation.pickUpTime}</td>
+                <td>${donation.pickUpComment}</td>
+                <td>${donation.status.pickedUp}</td>
+                <td>${donation.status.clickMoment}</td>
+                <td><a href="/app/donations/${donation.id}">Szczegóły</a></td>
+                </tr>
             </c:forEach>
-
-        </ul>
+            </tbody>
+        </table>
     </div>
 </section>
 <%@ include file="../../footer.jsp" %>

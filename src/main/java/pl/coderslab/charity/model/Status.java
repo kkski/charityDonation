@@ -20,7 +20,7 @@ public class Status {
 
     private boolean pickedUp = false;
 
-    private LocalDateTime pickUpMoment = null;
+    private LocalDateTime clickMoment = null;
 
     @OneToOne
     private Donation donation;

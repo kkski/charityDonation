@@ -14,6 +14,7 @@ import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Entity
@@ -57,5 +58,10 @@ public class Donation {
     private Status status;
     @ManyToOne
     private User user;
+
+    public String getCategoriesNames() {
+        List<String> categories = this.categories.stream().map(e -> e.getName()).collect(Collectors.toList());
+        return String.join(", ", categories);
+    }
 
 }

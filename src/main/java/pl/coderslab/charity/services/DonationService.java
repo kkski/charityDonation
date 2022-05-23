@@ -8,4 +8,8 @@ import java.util.List;
 public interface DonationService {
 
     List<Donation> findDonationsByUserId(Long userId);
+    Donation findDonationById(Long userId);
+
+    void approveDonation(Long donationId);
+
 }
