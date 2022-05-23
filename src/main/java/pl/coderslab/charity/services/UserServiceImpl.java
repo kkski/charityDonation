@@ -100,7 +100,6 @@ public class UserServiceImpl implements UserService {
         user.setEnabled(0);
         userRepository.save(user);
     }
-//rozbić, uzyc repo nie serwis EXISTS
 
 
 

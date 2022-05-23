@@ -12,6 +12,7 @@ import pl.coderslab.charity.repositories.InstitutionRepository;
 import pl.coderslab.charity.repositories.UserRepository;
 import pl.coderslab.charity.services.CurrentUser;
 import pl.coderslab.charity.services.UserService;
+import pl.coderslab.charity.services.ValidationService;
 
 import javax.validation.Valid;
 
@@ -23,11 +24,13 @@ public class AppController {
     private final UserService userService;
     private final InstitutionRepository institutionRepository;
     private final UserRepository userRepository;
+    private final ValidationService validationService;
 
-    public AppController(UserService userService, InstitutionRepository institutionRepository, UserRepository userRepository) {
+    public AppController(UserService userService, InstitutionRepository institutionRepository, UserRepository userRepository, ValidationService validationService) {
         this.userService = userService;
         this.institutionRepository = institutionRepository;
         this.userRepository = userRepository;
+        this.validationService = validationService;
     }
 
     @ModelAttribute
@@ -37,6 +40,7 @@ public class AppController {
         User myUser = userService.findByUsername(entityUser.getUsername());
         model.addAttribute("user", myUser);
     }
+
     @GetMapping("")
     public String app() {
         return "app";
@@ -60,19 +64,19 @@ public class AppController {
 
     @PostMapping("/profile/edit")
     public String doEditProfile(@Valid @ModelAttribute("userForm") UserDto userForm,
-                                 BindingResult bindingResult,
+                                BindingResult bindingResult,
                                 @AuthenticationPrincipal CurrentUser customUser) {
+        User entityUser = customUser.getUser();
+        User loggedUser = userService.findByUsername(entityUser.getUsername());
 
-        userService.extendValidation(userForm,bindingResult);
+        validationService.validateLoggedUser(userForm, bindingResult, loggedUser);
 
         if (bindingResult.hasErrors()) {
             return "editprofile";
         }
 
-        User entityUser = customUser.getUser();
-        User userToChange = userService.findByUsername(entityUser.getUsername());
 
-        userService.updateLoggedUser(userToChange.getId(), userForm);
+        userService.updateLoggedUser(loggedUser.getId(), userForm);
         return "redirect:/app";
     }
 
