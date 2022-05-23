@@ -5,7 +5,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<jsp:include page="app/headerloggedin.jsp"/>
+<jsp:include page="headerloggedin.jsp"/>
 
 <section class="login-page">
 

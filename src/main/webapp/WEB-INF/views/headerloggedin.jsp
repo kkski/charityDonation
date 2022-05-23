@@ -21,7 +21,6 @@
                 Witaj ${user.firstName}
                 <ul class="dropdown">
                     <li><a href="/app/profile/edit">Edytuj profil</a></li>
-                    <li><a href="#">Moje zbiórki</a></li>
                     <li><form action="<c:url value="/"/>" method="post">
                         <input type="submit" value="Wyloguj">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -31,9 +30,10 @@
         </ul>
 
         <ul>
-            <li><a href="index.html" class="btn btn--without-border active">Start</a></li>
+            <li><a href="/app" class="btn btn--without-border active">Start</a></li>
             <sec:authorize access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
                 <li><a href="/app/donations/donation" class="btn btn--without-border">Przekaż dary</a></li>
+                <li><a href="/app/donations" class="btn btn--without-border">Zarządzaj darami</a></li>
             </sec:authorize>
             <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <li><a href="/admin/institutions" class="btn btn--without-border">Fundacje i organizacje</a></li>
@@ -41,6 +41,5 @@
                 <li><a href="/admin/users" class="btn btn--without-border">Zarządzaj użytkownikami</a></li>
             </sec:authorize>
             <li><a href="index.html#contact" class="btn btn--without-border">Kontakt</a></li>
-        </ul>
-    </nav>
+        </ul>    </nav>
 </header>
