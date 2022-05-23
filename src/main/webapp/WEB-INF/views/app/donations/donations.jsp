@@ -7,27 +7,17 @@
 <jsp:include page="../../headerloggedin.jsp"/>
 <section class="help">
     <h2>Zarządzaj donacjami</h2>
-    <h3><a href="/donation">Dodaj nową donację</a></h3>
     <div class="help--slides active">
         <ul class="help--slides-items">
-            <c:forEach items="${users}" var = "i" begin = "0" end = "10" varStatus="loop">
-                <c:if test="${loop.index % 2 == 0}"><li></c:if>
-                <div class="col">
-                    <div class="title">${i.username}</div>
-                    <div class="subtitle">${i.email}</div>
+            <c:forEach items="${donations}" var="donation">
+            Dla: ${donation.institution.name}
+                Ilość: ${donation.quantity}
 
-                    <div class="subtitle"><c:if test="${i.enabled == 0}">Zablokowano, <a href="/admin/users/unblock/${i.id}">Odblokuj</a></c:if>
-                        <c:if test="${i.enabled == 1}"><a href="/admin/users/block/${i.id}">Zablokuj</a></c:if>
-                        <a href="/admin/users/edit/${i.id}">Edytuj</a> <a href="/admin/users/delete/${i.id}">Usuń</a></div>
-
-                </div>
-                <c:if test="${loop.index + 1 % 2 == 0}"></li></c:if>
             </c:forEach>
 
         </ul>
     </div>
 </section>
-
 <%@ include file="../../footer.jsp" %>
 
 </body>

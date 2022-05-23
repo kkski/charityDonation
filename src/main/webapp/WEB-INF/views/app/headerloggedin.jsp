@@ -34,6 +34,7 @@
             <li><a href="index.html" class="btn btn--without-border active">Start</a></li>
             <sec:authorize access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
             <li><a href="/app/donations/donation" class="btn btn--without-border">Przekaż dary</a></li>
+                <li><a href="/app/donations" class="btn btn--without-border">Zarządzaj darami</a></li>
             </sec:authorize>
             <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <li><a href="/admin/institutions" class="btn btn--without-border">Fundacje i organizacje</a></li>

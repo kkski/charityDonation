@@ -14,6 +14,7 @@ import pl.coderslab.charity.repositories.CategoryRepository;
 import pl.coderslab.charity.repositories.DonationRepository;
 import pl.coderslab.charity.repositories.InstitutionRepository;
 import pl.coderslab.charity.services.CurrentUser;
+import pl.coderslab.charity.services.DonationService;
 import pl.coderslab.charity.services.UserService;
 
 import javax.validation.Valid;
@@ -28,12 +29,14 @@ public class DonationController {
     private final CategoryRepository categoryRepository;
     private final DonationRepository donationRepository;
     private final UserService userService;
+    private final DonationService donationService;
 
-    public DonationController(InstitutionRepository institutionRepository, CategoryRepository categoryRepository, DonationRepository donationRepository, UserService userService) {
+    public DonationController(InstitutionRepository institutionRepository, CategoryRepository categoryRepository, DonationRepository donationRepository, UserService userService, DonationService donationService) {
         this.institutionRepository = institutionRepository;
         this.categoryRepository = categoryRepository;
         this.donationRepository = donationRepository;
         this.userService = userService;
+        this.donationService = donationService;
     }
 
     @ModelAttribute
@@ -49,6 +52,16 @@ public class DonationController {
         model.addAttribute("user", myUser);
 
     }
+
+
+    @GetMapping("")
+    public String showDonations(Model model, @AuthenticationPrincipal CurrentUser customUser) {
+        User loggedUser = customUser.getUser();
+        model.addAttribute("donations", donationService.findDonationsByUserId(loggedUser.getId()));
+        return "app/donations/donations";
+    }
+
+
 
     @GetMapping("/donation")
     public String donateAction(Model model,
