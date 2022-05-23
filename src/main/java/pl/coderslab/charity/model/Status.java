@@ -18,9 +18,9 @@ public class Status {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    private boolean pickedUp;
+    private boolean pickedUp = false;
 
-    private LocalDateTime pickUpMoment;
+    private LocalDateTime pickUpMoment = null;
 
     @OneToOne
     private Donation donation;

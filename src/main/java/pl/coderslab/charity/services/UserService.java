@@ -20,6 +20,6 @@ public interface UserService {
         User findById(Long id);
         void disableUser(Long userId);
 
-        void extendValidation(UserDto userForm, BindingResult bindingResult);
+
     }
 

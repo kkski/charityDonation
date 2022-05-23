@@ -1,18 +1,15 @@
 package pl.coderslab.charity;
 
 import org.springframework.data.domain.PageRequest;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.coderslab.charity.model.User;
 import pl.coderslab.charity.model.UserDto;
 import pl.coderslab.charity.repositories.DonationRepository;
 import pl.coderslab.charity.repositories.InstitutionRepository;
-import pl.coderslab.charity.services.CurrentUser;
 import pl.coderslab.charity.services.UserService;
+import pl.coderslab.charity.services.ValidationService;
 
 import javax.validation.Valid;
 
@@ -22,12 +19,14 @@ public class HomeController {
     private final InstitutionRepository institutionRepository;
     private final DonationRepository donationRepository;
     private final UserService userService;
+    private final ValidationService validationService;
 
 
-    public HomeController(InstitutionRepository institutionRepository, DonationRepository donationRepository, UserService userService) {
+    public HomeController(InstitutionRepository institutionRepository, DonationRepository donationRepository, UserService userService, ValidationService validationService) {
         this.institutionRepository = institutionRepository;
         this.donationRepository = donationRepository;
         this.userService = userService;
+        this.validationService = validationService;
     }
 
     @ModelAttribute
@@ -61,7 +60,7 @@ public class HomeController {
     public String register(@Valid @ModelAttribute("userForm") UserDto userForm,
                            BindingResult bindingResult) {
 
-        userService.extendValidation(userForm,bindingResult);
+        validationService.validateUser(userForm,bindingResult);
 
 //        if (userService.findByUsername(userForm.getUsername()).getPassword().) == false) {
 //            bindingResult.rejectValue("username", "username.exists",

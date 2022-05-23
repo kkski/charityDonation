@@ -53,7 +53,7 @@ public class Donation {
     @NotBlank(message = "Wprowadź wartość")
     @Size(min=4, message = "Wprowadź minimum 4 litery.")
     private String pickUpComment;
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     private Status status;
     @ManyToOne
     private User user;

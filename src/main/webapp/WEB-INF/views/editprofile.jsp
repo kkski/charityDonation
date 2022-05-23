@@ -50,7 +50,7 @@
 
         <sec:authorize access="hasRole('ROLE_USER')">
             <div class="form-group">
-                <p class="title">Hasło:</p>
+                <p class="title">Stare hasło:</p>
                 <form:input type="password" name="oldPassword" path="oldPassword"/>
                 <p class="subtitle"><form:errors path="password"/></p>
             </div>

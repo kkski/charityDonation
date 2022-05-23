@@ -11,6 +11,7 @@ import pl.coderslab.charity.model.UserDto;
 import pl.coderslab.charity.repositories.UserRepository;
 import pl.coderslab.charity.services.CurrentUser;
 import pl.coderslab.charity.services.UserService;
+import pl.coderslab.charity.services.ValidationService;
 
 import javax.validation.Valid;
 
@@ -19,10 +20,13 @@ import javax.validation.Valid;
 @RequestMapping("/admin/admins/edit/{adminId}")
 public class EditAdminController {
 
+
+    private final ValidationService validationService;
     private final UserService userService;
     private final UserRepository userRepository;
 
-    public EditAdminController(UserService userService, UserRepository userRepository) {
+    public EditAdminController(ValidationService validationService, UserService userService, UserRepository userRepository) {
+        this.validationService = validationService;
         this.userService = userService;
         this.userRepository = userRepository;
     }
@@ -56,7 +60,7 @@ public class EditAdminController {
                               BindingResult bindingResult,
                               @PathVariable("adminId") Long adminId) {
 
-        userService.extendValidation(userForm, bindingResult);
+        validationService.validateUser(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
             return "app/admin/adminedit";

@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.model.Category;
 import pl.coderslab.charity.model.Donation;
+import pl.coderslab.charity.model.Status;
 import pl.coderslab.charity.model.User;
 import pl.coderslab.charity.repositories.CategoryRepository;
 import pl.coderslab.charity.repositories.DonationRepository;
@@ -58,23 +59,24 @@ public class DonationController {
             List<Category> emptyCategories = new ArrayList<>();
             model.addAttribute("donation", new Donation());
             model.addAttribute("categories", emptyCategories);
-            return "form";
+            return "app/donations/donationform";
         }
 
         model.addAttribute("donation", new Donation());
 
-        return "donations/donationform";
+        return "app/donations/donationform";
     }
 
     @PostMapping("/donation")
     public String addDonation(
             @Valid @ModelAttribute("donation") Donation donation,
-                              BindingResult bindingResult
-                             ) {
+            BindingResult bindingResult,
+            @AuthenticationPrincipal CurrentUser customUser
+    ) {
         if (bindingResult.hasErrors()) {
             return "form";
         }
-
+        User entityUser = customUser.getUser();
         Donation myDonation = new Donation();
 
         myDonation.setCategories(donation.getCategories());
@@ -86,7 +88,10 @@ public class DonationController {
         myDonation.setQuantity(donation.getQuantity());
         myDonation.setStreet(donation.getStreet());
         myDonation.setZipCode(donation.getZipCode());
-
+        myDonation.setUser(userService.findByUsername(entityUser.getUsername()));
+        Status status = new Status();
+        status.setDonation(myDonation);
+        myDonation.setStatus(status);
         donationRepository.save(myDonation);
 
         return "redirect:/app";
