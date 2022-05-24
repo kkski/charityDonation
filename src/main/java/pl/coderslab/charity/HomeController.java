@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.model.UserDto;
 import pl.coderslab.charity.repositories.DonationRepository;
 import pl.coderslab.charity.repositories.InstitutionRepository;
+import pl.coderslab.charity.services.EmailService;
 import pl.coderslab.charity.services.UserService;
 import pl.coderslab.charity.services.ValidationService;
 
+import javax.mail.SendFailedException;
 import javax.validation.Valid;
 
 
@@ -19,13 +21,15 @@ public class HomeController {
     private final InstitutionRepository institutionRepository;
     private final DonationRepository donationRepository;
     private final UserService userService;
+    private final EmailService emailService;
     private final ValidationService validationService;
 
 
-    public HomeController(InstitutionRepository institutionRepository, DonationRepository donationRepository, UserService userService, ValidationService validationService) {
+    public HomeController(InstitutionRepository institutionRepository, DonationRepository donationRepository, UserService userService, EmailService emailService, ValidationService validationService) {
         this.institutionRepository = institutionRepository;
         this.donationRepository = donationRepository;
         this.userService = userService;
+        this.emailService = emailService;
         this.validationService = validationService;
     }
 
@@ -70,6 +74,7 @@ public class HomeController {
         if (bindingResult.hasErrors()) {
             return "/register";
         }
+        emailService.sendActivationMessage(userForm.getEmail());
 
         userService.saveUser(userForm);
         return "redirect:/";

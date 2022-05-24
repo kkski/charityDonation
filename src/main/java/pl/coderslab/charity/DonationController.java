@@ -57,6 +57,7 @@ public class DonationController {
     @GetMapping("")
     public String showDonations(Model model, @AuthenticationPrincipal CurrentUser customUser) {
         User loggedUser = customUser.getUser();
+
         model.addAttribute("donations", donationService.findDonationsByUserId(loggedUser.getId()));
         return "app/donations/donations";
     }
