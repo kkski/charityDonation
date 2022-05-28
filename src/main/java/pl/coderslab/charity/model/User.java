@@ -34,6 +34,8 @@ public class User {
     @OneToMany
     private List<Donation> donations;
 
+    @OneToOne
+    private SecureToken secureToken;
     @PreRemove
     private void clearRoles() {
         this.roles.clear();
