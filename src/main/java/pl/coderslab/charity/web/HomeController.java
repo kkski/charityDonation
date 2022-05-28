@@ -1,4 +1,4 @@
-package pl.coderslab.charity;
+package pl.coderslab.charity.web;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;

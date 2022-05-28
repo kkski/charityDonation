@@ -1,4 +1,4 @@
-package pl.coderslab.charity;
+package pl.coderslab.charity.web;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
