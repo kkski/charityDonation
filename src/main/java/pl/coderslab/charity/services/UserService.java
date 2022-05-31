@@ -20,6 +20,11 @@ public interface UserService {
         User findById(Long id);
         void disableUser(Long userId);
 
+        void createVerificationToken(User user);
 
-    }
+        void activateUser(String token);
+
+
+
+}
 

@@ -14,6 +14,7 @@ import pl.coderslab.charity.services.ValidationService;
 
 import javax.mail.SendFailedException;
 import javax.validation.Valid;
+import java.util.UUID;
 
 
 @Controller
@@ -64,6 +65,10 @@ public class HomeController {
     public String register(@Valid @ModelAttribute("userForm") UserDto userForm,
                            BindingResult bindingResult) {
 
+
+
+
+
         validationService.validateUser(userForm,bindingResult);
 
 //        if (userService.findByUsername(userForm.getUsername()).getPassword().) == false) {
@@ -74,9 +79,17 @@ public class HomeController {
         if (bindingResult.hasErrors()) {
             return "/register";
         }
-        emailService.sendActivationMessage(userForm.getEmail());
 
         userService.saveUser(userForm);
+        userService.createVerificationToken(userService.findByUsername(userForm.getUsername()));
+        emailService.sendActivationMessage(userForm.getEmail());
+        return "redirect:/";
+    }
+
+    @GetMapping("/register/{token}")
+    public String registrationConfirmation(
+            @PathVariable("token") String token) {
+        userService.activateUser(token);
         return "redirect:/";
     }
 

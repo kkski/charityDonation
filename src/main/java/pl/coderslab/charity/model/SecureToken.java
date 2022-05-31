@@ -6,10 +6,9 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.Calendar;
+import java.time.LocalDate;
+import java.util.UUID;
+
 
 @Entity
 @Table(name = "secureTokens")
@@ -27,8 +26,10 @@ public class SecureToken {
     @JoinColumn(nullable = false, name = "user_id")
     private User user;
 
-    private Date creationDate;
+    private LocalDate creationDate = LocalDate.now();
 
-
-
+    public SecureToken(String token, User user) {
+        this.token = token;
+        this.user = user;
+    }
 }
