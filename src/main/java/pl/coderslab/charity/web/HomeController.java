@@ -83,7 +83,7 @@ public class HomeController {
         userService.saveUser(userForm);
         userService.createVerificationToken(userService.findByUsername(userForm.getUsername()));
         emailService.sendActivationMessage(userForm.getEmail());
-        return "redirect:/";
+        return "redirect:/register/after";
     }
 
     @GetMapping("/register/{token}")
@@ -91,6 +91,10 @@ public class HomeController {
             @PathVariable("token") String token) {
         userService.activateUser(token);
         return "redirect:/";
+    }
+    @GetMapping("/register/after")
+    public String registrationAfter() {
+        return "registerafter";
     }
 
 }
