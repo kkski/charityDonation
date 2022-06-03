@@ -23,7 +23,7 @@ public class EmailServiceImpl implements EmailService {
             message.setFrom("scaffymanager@gmail.com");
             message.setTo(to);
             message.setSubject("Activation message");
-            String url = "localhost:8080/register/confirm?=" + userService.findByEmail(to).getSecureToken().getToken();
+            String url = "localhost:8080/register/" + userService.findByEmail(to).getSecureToken().getToken();
             message.setText("Activation link = " + url);
             emailSender.send(message);
             System.out.println("mail sent");
